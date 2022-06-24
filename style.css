@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.logo {
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+nav {
+    display: flex; /* Colocar a lista uma do lado da outra */
+    justify-content: space-around; /*Vai fazer com que o espaço ao redor seja a metade do espaço entre eles*/
+    align-items: center; /*Alinhar ambos verticalmente ao centro*/
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif; /* Usar a que eu preferir */
+    background: #23232e;
+    height: 8vh; /*View port height (vh): é uma unidade responsiva que se adapta a altura da janela de visualização do usuário */
+}
+
+main {
+    background: url("kym.jpg") no-repeat center center; /* Que se referem sua posição nos eixos X e Y */
+    background-size: cover; /* Caso a resolução do monitor seja maior que a da imagem  */
+    height: 92vh;
+}
+
+.nav-list { /* Se refere a UL */
+    list-style: none;
+    display: flex;
+}
+
+.nav-list li { /* Apenas para afastar os intens um do outro */
+    letter-spacing: 3px;
+    margin-left: 32px;
+}
+
+.mobile-menu {
+    display: none; /*Como eu quero que ele so apareça em telas menores, vamos usar essa tag*/
+    cursor: pointer; /*Para mostra a mãozinha do mouse quando colocado encima da parte responsivo*/
+}
+
+.mobile-menu div {
+    width: 32px;
+    height: 2px;
+    background: #ffff;
+    margin: 8px;
+    transition: 0.3s;
+}
+
+/* Eu quero que essa navegação apareça na lateral do site, quando a tela atingir um determinado breakpoint */
+@media (max-width: 999px) { /* quando a tela for menor que isso terei: */
+    /* Pra resolver o problema da barra de scrou vertical tenho que fazer isso: */
+    body {
+        overflow-x: hidden; /*Isso faz com que, se algo transborda fica escondido do body
+        logo some o scrou vertical*/ 
+    }
+    .nav-list {
+        position: absolute; /* significa que agora posso posicionar minha navegação onde eu quiser */
+        top: 8vh; /* Pra ficar logo abaixo do header */
+        right: 0; /* Já que o menu ficará na direita */
+        width: 50vw;
+        height: 92vh;
+        background: #23232e;
+        flex-direction: column; /**/
+        align-items: center; /*Lembrando que o eixo muda quando é coluna*/
+        justify-content: space-around; /* Separando assim os links pelo espaço disponível */
+        /* Agora quero mover a navegação toda pra fora da tela, pra so aparecer quando alguém clicar no botão de menu */
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in; /*que representa uma chegada suave*/
+    }
+
+    .nav-list li {
+        margin-left: 0; /*Vou tirar o margin=left para eles ficarem corretamente ao centro*/
+        opacity: 0; /*Deixa a li com opacidade de 0, já que depois vou fazer a animação*/
+    }
+
+    .mobile-menu {
+        display: block; /* Então o estilo flaxbox automaticamente se ajusta */
+    }
+}
+
+/* Quando a nav-list estiver ativa, com a estilização transform: translateX(0) voltara para 0 */
+.nav-list.active { /*active é a classe que vou adicionar através do JavaScript*/
+    transform: translateX(0);
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mobile-menu.active .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+.mobile-menu.active .line2 {
+    opacity: 0;
+}
+
+.mobile-menu.active .line3 {
+    transform: rotate(45deg) translate(-5px, -7px);
+}
